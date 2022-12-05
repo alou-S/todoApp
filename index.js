@@ -36,7 +36,7 @@ app.get("/api/todo/:id", async function (req, res){
   res.status(200).send(result);
 });
 
-app.post('/api/newtodo/:mail/:task', function(req, res) {
+app.post('/api/newtodo/:mail/:task', async function(req, res) {
   const email = req.params.mail;
   const task = req.params.task;
 	const date = Date.now();
@@ -49,7 +49,7 @@ app.post('/api/newtodo/:mail/:task', function(req, res) {
     task
   };
 
-  const result = client.db(dbName).collection(collection).insertOne(dump);
+  const result = await client.db(dbName).collection(collection).insertOne(dump);
 
   res.status(200).send(`Created a task with id ${result}`);
 });
